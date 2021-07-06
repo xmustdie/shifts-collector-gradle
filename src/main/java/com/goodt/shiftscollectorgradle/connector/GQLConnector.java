@@ -1,10 +1,10 @@
 package com.goodt.shiftscollectorgradle.connector;
 
-import org.mountcloud.graphql.GraphqlClient;
-import org.mountcloud.graphql.request.query.DefaultGraphqlQuery;
-import org.mountcloud.graphql.request.query.GraphqlQuery;
-import org.mountcloud.graphql.request.result.ResultAttributtes;
-import org.mountcloud.graphql.response.GraphqlResponse;
+import com.goodt.shiftscollectorgradle.client.GraphqlClient;
+import com.goodt.shiftscollectorgradle.client.request.query.DefaultGraphqlQuery;
+import com.goodt.shiftscollectorgradle.client.request.query.GraphqlQuery;
+import com.goodt.shiftscollectorgradle.client.request.result.ResultAttributtes;
+import com.goodt.shiftscollectorgradle.client.response.GraphqlResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
