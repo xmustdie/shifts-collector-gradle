@@ -1,0 +1,36 @@
+type Query {
+    organizationUnitId: Int
+    from: String!
+    to: String!
+    splitShifts: Boolean
+}
+
+type workedEvents {
+    __typename : String
+    status : String
+    type : String
+    dayType : String
+    lunch : Float
+    employee : Employee
+}
+
+type Employee {
+    outerId: String
+    name: String
+}
+
+type Position {
+    name: String
+    organizationUnit: organizationUnit
+}
+
+type organizationUnit {
+    outerId: Int
+}
+
+type dateTimeInterval {
+startDate: String
+startTime:String
+endDate: String
+endTime: String
+}
