@@ -1,6 +1,5 @@
 package com.goodt.shiftscollectorgradle.entity;
 
-import com.goodt.shiftscollectorgradle.HasId;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,11 +15,4 @@ public abstract class AbstractBaseEntity implements HasId {
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     protected Integer id;
-
-    protected AbstractBaseEntity() {
-    }
-
-    protected AbstractBaseEntity(Integer id) {
-        this.id = id;
-    }
 }

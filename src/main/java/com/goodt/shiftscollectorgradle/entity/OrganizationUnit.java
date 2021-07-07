@@ -15,4 +15,7 @@ public class OrganizationUnit extends AbstractBaseEntity{
 
     @Column(name = "outer_id")
     private String outerId;
+
+    @Column(name = "title")
+    private String title;
 }

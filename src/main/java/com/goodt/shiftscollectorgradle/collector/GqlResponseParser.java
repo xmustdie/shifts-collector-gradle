@@ -6,22 +6,23 @@ import com.goodt.shiftscollectorgradle.client.response.GraphqlResponse;
 import com.goodt.shiftscollectorgradle.entity.OrganizationUnit;
 import com.goodt.shiftscollectorgradle.service.OrganizationUnitService;
 import com.goodt.shiftscollectorgradle.service.WorkedEventService;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 @Component
+@AllArgsConstructor
 public class GqlResponseParser {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private OrganizationUnitService organizationUnitService;
-    @Autowired
-    private WorkedEventService workedEventService;
+    private final OrganizationUnitService organizationUnitService;
+    private final WorkedEventService workedEventService;
+    private final WorkedEventAdapter workedEventAdapter;
+    private final OrganizationUnitAdapter organizationUnitAdapter;
 
     public void parseGqlResponse(GraphqlResponse response) {
         Map dataContainer = (Map) ((Map) response.getData().get("data")).get(
@@ -30,7 +31,7 @@ public class GqlResponseParser {
         ) {
             if ("organizationUnit".equals(o)) {
                 var organizationUnit = new OrganizationUnit();
-                OrganizationUnitAdapter.convert((Map) dataContainer.get(
+                organizationUnitAdapter.convert((Map) dataContainer.get(
                         "organizationUnit"), organizationUnit);
                 organizationUnitService.save(organizationUnit);
             }
@@ -39,7 +40,7 @@ public class GqlResponseParser {
                 var workedEvents = (ArrayList) dataContainer.get(
                         "workedEvents");
                 for (Object workedEvent : workedEvents) {
-                    workedEventService.save(WorkedEventAdapter.convert((Map) workedEvent));
+                    workedEventService.save(workedEventAdapter.convert((Map) workedEvent));
                 }
             }
         }

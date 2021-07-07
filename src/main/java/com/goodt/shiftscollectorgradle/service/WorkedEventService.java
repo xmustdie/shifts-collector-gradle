@@ -6,11 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service("workedEventService")
 public class WorkedEventService {
-    private final WorkedEventRepository repository;
-
-    public WorkedEventService(WorkedEventRepository repository) {
-        this.repository = repository;
-    }
+    private WorkedEventRepository repository;
 
     public WorkedEvent save(WorkedEvent workedEvent) {
         if (workedEvent == null) return null;

@@ -1,4 +1,4 @@
-package com.goodt.shiftscollectorgradle;
+package com.goodt.shiftscollectorgradle.entity;
 
 import org.springframework.util.Assert;
 
