@@ -35,7 +35,7 @@ CREATE TABLE positions
 (
     id              INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     name            VARCHAR NOT NULL,
-    organization_id INTEGER NOT NULL,
+    organization_id VARCHAR NOT NULL,
     CONSTRAINT positions_id_idx UNIQUE (id),
     FOREIGN KEY (id) REFERENCES worked_events (id)
 );
@@ -44,7 +44,7 @@ CREATE TABLE employee_positions
 (
     id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     external_id INTEGER NOT NULL,
-    card_number INTEGER NOT NULL,
+    card_number VARCHAR NOT NULL,
     CONSTRAINT employee_positions_id_idx UNIQUE (id),
     FOREIGN KEY (id) REFERENCES worked_events (id)
 );

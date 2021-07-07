@@ -8,9 +8,9 @@ public class OrganizationUnitService {
 
     public OrganizationUnit save(OrganizationUnit organizationUnit) {
         if (!organizationUnit.isNew() && get(organizationUnit.getOuterId()) == null) {
-            return repository.save(organizationUnit);
-        } else {
             return get(organizationUnit.getOuterId());
+        } else {
+            return repository.save(organizationUnit);
         }
     }
 

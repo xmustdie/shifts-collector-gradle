@@ -20,14 +20,14 @@ public class WorkedEvent extends AbstractBaseEntity {
     public static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
+    @Column(name = "day_type")
+    private String dayType;
+
     @Column(name = "status")
     private String status;
 
     //    private Enum type;
     /*TODO type realization*/
-
-    @Column(name = "day_type")
-    private String dayType;
 
     @Column(name = "lunch_time")
     private BigInteger lunchTime;

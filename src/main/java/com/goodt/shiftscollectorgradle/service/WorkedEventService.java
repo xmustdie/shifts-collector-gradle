@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class WorkedEventService {
     private final WorkedEventRepository repository;
 
-    public WorkedEvent create(WorkedEvent workedEvent) {
+    public WorkedEvent save(WorkedEvent workedEvent) {
         if (workedEvent == null) return null;
         return repository.save(workedEvent);
     }

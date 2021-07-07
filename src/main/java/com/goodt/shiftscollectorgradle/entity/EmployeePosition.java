@@ -16,5 +16,5 @@ public class EmployeePosition extends AbstractBaseEntity{
     @Column(name = "external_id")
     private Integer externalId;
     @Column (name = "card_number")
-    private Integer cardNumber;
+    private String cardNumber;
 }
