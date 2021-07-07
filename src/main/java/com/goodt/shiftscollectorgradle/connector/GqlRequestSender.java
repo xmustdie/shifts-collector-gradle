@@ -24,7 +24,7 @@ public class GqlRequestSender {
     private Map responseData = new HashMap<>();
     private final Map<String, Object> timeSheetSettings = new HashMap<>();
 
-    public Map sendRequest() {
+    public Map doSend() {
         GraphqlQuery query = new DefaultGraphqlQuery("getTimesheetRosterReport");
         setQueryParameters(query);
         setQueryResultAttributes(query);
