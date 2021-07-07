@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS employees;
 DROP TABLE IF EXISTS positions;
 DROP TABLE IF EXISTS employee_positions;
 DROP TABLE IF EXISTS worked_events;
+DROP TABLE IF EXISTS organization_unit;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START WITH 100000;
@@ -36,7 +37,7 @@ CREATE TABLE positions
     name            VARCHAR NOT NULL,
     organization_id INTEGER NOT NULL,
     CONSTRAINT positions_id_idx UNIQUE (id),
-    FOREIGN KEY (id) REFERENCES worked_events(id)
+    FOREIGN KEY (id) REFERENCES worked_events (id)
 );
 
 CREATE TABLE employee_positions
@@ -45,5 +46,11 @@ CREATE TABLE employee_positions
     external_id INTEGER NOT NULL,
     card_number INTEGER NOT NULL,
     CONSTRAINT employee_positions_id_idx UNIQUE (id),
-    FOREIGN KEY (id) REFERENCES worked_events(id)
+    FOREIGN KEY (id) REFERENCES worked_events (id)
 );
+
+CREATE TABLE organization_units
+(
+    id       INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    outer_id VARCHAR NOT NULL
+)

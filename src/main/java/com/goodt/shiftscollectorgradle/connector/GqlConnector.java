@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GQLConnector {
+public class GqlConnector {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final String SERVER_URL = "https://reports-aggregator-dev.goodt.me/graphql";
 
@@ -21,24 +21,34 @@ public class GQLConnector {
     private final String TO_DATE = "2021-03-31";
 
     private final GraphqlClient graphqlClient = GraphqlClient.buildGraphqlClient(SERVER_URL);
+    private Map responseData = new HashMap<>();
+    private final Map<String, Object> timeSheetSettings = new HashMap<>();
 
-    public void sendRequest() {
+    public Map sendRequest() {
         GraphqlQuery query = new DefaultGraphqlQuery("getTimesheetRosterReport");
-        Map<String, Object> timeSheetSettings = new HashMap<>() {{
-            put("organizationUnitId", ORG_UNIT_ID);
-            put("from", FROM_DATE);
-            put("to", TO_DATE);
-            put("splitShifts", true);
-        }};
+        setQueryParameters(query);
+        setQueryResultAttributes(query);
+        log.info(query.toString());
 
-        Map<String, String> headers = new HashMap<>();
+        try {
+            GraphqlResponse response = graphqlClient.doQuery(query);
+            responseData = response.getData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.info(responseData.toString());
+        return responseData;
+    }
 
-
-        graphqlClient.setHttpHeaders(headers);
-
-        log.info("\n" + timeSheetSettings.toString() + "\n");
+    private void setQueryParameters(GraphqlQuery query) {
+        timeSheetSettings.put("organizationUnitId", ORG_UNIT_ID);
+        timeSheetSettings.put("from", FROM_DATE);
+        timeSheetSettings.put("to", TO_DATE);
+        timeSheetSettings.put("splitShifts", true);
         query.getRequestParameter().addObjectParameter("timeSheetSettings", timeSheetSettings);
+    }
 
+    private void setQueryResultAttributes(GraphqlQuery query) {
         ResultAttributtes orgUnit = new ResultAttributtes("organizationUnit");
         orgUnit.addResultAttributes("title", "outerId");
 
@@ -62,18 +72,5 @@ public class GQLConnector {
         workedEvents.addResultAttributes("__typename", "status", "type", "dayType", "lunch");
         workedEvents.addResultAttributes(employee, position, dateTimeInterval, employeePosition);
         query.addResultAttributes(orgUnit, workedEvents);
-
-        log.info(query.toString());
-
-        Map responseData = new HashMap();
-        try {
-            GraphqlResponse response = graphqlClient.doQuery(query);
-            //this map is graphql result
-            responseData = response.getData();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        log.info(responseData.toString());
     }
 }
