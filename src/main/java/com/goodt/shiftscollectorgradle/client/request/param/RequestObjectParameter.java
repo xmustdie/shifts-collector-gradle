@@ -27,7 +27,7 @@ import com.goodt.shiftscollectorgradle.client.request.param.jsonserializer.EnumS
  */
 public class RequestObjectParameter {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     private Object data;
 
@@ -37,12 +37,11 @@ public class RequestObjectParameter {
      */
     public RequestObjectParameter(Object data) {
 
-        //初始化objectMapper
         objectMapper.registerModule(new Jdk8Module());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        //属性名去掉双引号
+
         objectMapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
-        //返回enum名字，去掉双引号:   type:"JPG" is  type:JPG
+
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(Enum.class,new EnumSerializer());
         objectMapper.registerModule(simpleModule);
@@ -60,9 +59,7 @@ public class RequestObjectParameter {
 
     @Override
     public String toString() {
-        String json = dataToJson();
-//        json = json.replaceAll("\\\"","\\\\\"");
-        return json;
+        return dataToJson().replaceAll("\\\"","\\\\\"");
     }
 
     /**
