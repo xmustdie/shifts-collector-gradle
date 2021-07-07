@@ -1,16 +1,18 @@
-package com.goodt.shiftscollectorgradle.connector;
+package com.goodt.shiftscollectorgradle.collector;
 
 import com.goodt.shiftscollectorgradle.client.response.GraphqlResponse;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@AllArgsConstructor
+
 @Component
-public class GqlConnector {
+public class GqlCollector {
+    @Autowired
     private GqlRequestSender gqlRequestSender;
+    @Autowired
     private GqlResponseParser gqlResponseParser;
 
-    public void send() {
+    public void start() {
         GraphqlResponse response = (GraphqlResponse) gqlRequestSender.doSend();
         gqlResponseParser.parseGqlResponse(response);
     }

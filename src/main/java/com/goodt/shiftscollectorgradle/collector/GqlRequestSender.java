@@ -1,4 +1,4 @@
-package com.goodt.shiftscollectorgradle.connector;
+package com.goodt.shiftscollectorgradle.collector;
 
 import com.goodt.shiftscollectorgradle.client.GraphqlClient;
 import com.goodt.shiftscollectorgradle.client.request.query.DefaultGraphqlQuery;
@@ -7,11 +7,13 @@ import com.goodt.shiftscollectorgradle.client.request.result.ResultAttributtes;
 import com.goodt.shiftscollectorgradle.client.response.GraphqlResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class GqlRequestSender {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final String SERVER_URL = "https://reports-aggregator-dev.goodt.me/graphql";

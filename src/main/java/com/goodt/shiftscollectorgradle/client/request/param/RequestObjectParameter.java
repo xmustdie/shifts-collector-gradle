@@ -1,7 +1,6 @@
 package com.goodt.shiftscollectorgradle.client.request.param;
 
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,7 +39,7 @@ public class RequestObjectParameter {
         objectMapper.registerModule(new Jdk8Module());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        objectMapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
+//        objectMapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
 
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(Enum.class,new EnumSerializer());
