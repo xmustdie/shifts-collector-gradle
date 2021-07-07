@@ -4,6 +4,7 @@ import com.goodt.shiftscollectorgradle.client.request.param.RequestParameter;
 import com.goodt.shiftscollectorgradle.client.request.result.ResultAttributtes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public abstract class GraphqlRequest {
 
     protected RequestParameter requestParameter;
 
-    protected List<ResultAttributtes> resultAttributes = new ArrayList<ResultAttributtes>();
+    protected List<ResultAttributtes> resultAttributes = new ArrayList<>();
 
     /**
      * 不可见的构造
@@ -70,9 +71,7 @@ public abstract class GraphqlRequest {
      */
     public GraphqlRequest addResultAttributes(ResultAttributtes... resultAttr){
         if(resultAttr!=null&&resultAttr.length>0){
-            for(ResultAttributtes ra : resultAttr){
-                resultAttributes.add(ra);
-            }
+            Collections.addAll(resultAttributes, resultAttr);
 
         }
         return this;
@@ -93,12 +92,12 @@ public abstract class GraphqlRequest {
     @Override
     public String toString() {
 
-        StringBuffer requestBuffer = new StringBuffer(requestName);
+        StringBuilder requestBuffer = new StringBuilder(requestName);
 
         //参数列表字符串
         String paramStr = getRequestParameter().toString();
 
-        StringBuffer resultAttrBuffer = new StringBuffer("");
+        StringBuilder resultAttrBuffer = new StringBuilder();
         boolean first = true;
         //第一个前面不拼接","
         for(ResultAttributtes ra :resultAttributes) {

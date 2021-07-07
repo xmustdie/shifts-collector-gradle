@@ -6,6 +6,5 @@ package com.goodt.shiftscollectorgradle.client.request;
  * @version V1.0
  */
 public enum GraphqlRequestType {
-
     POST
 }

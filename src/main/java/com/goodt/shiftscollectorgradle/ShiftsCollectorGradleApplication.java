@@ -11,5 +11,4 @@ public class ShiftsCollectorGradleApplication {
     public static void main(String[] args) {
         SpringApplication.run(ShiftsCollectorGradleApplication.class, args);
     }
-
 }

@@ -1,12 +1,12 @@
 DROP TABLE IF EXISTS employees;
 DROP TABLE IF EXISTS positions;
 DROP TABLE IF EXISTS employee_positions;
-DROP TABLE IF EXISTS shifts;
+DROP TABLE IF EXISTS worked_events;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START WITH 100000;
 
-CREATE TABLE shifts
+CREATE TABLE worked_events
 (
     id                   INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     status               VARCHAR NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE shifts
     start_date_time      TIMESTAMP,
     end_date_time        TIMESTAMP
 );
-CREATE UNIQUE INDEX shifts_unique_id_idx ON shifts (id);
+CREATE UNIQUE INDEX shifts_unique_id_idx ON worked_events (id);
 
 CREATE TABLE employees
 (
@@ -27,7 +27,7 @@ CREATE TABLE employees
     outer_id  VARCHAR NOT NULL,
     last_name VARCHAR NOT NULL,
     CONSTRAINT employees_outer_id_idx UNIQUE (id, outer_id),
-    FOREIGN KEY (id) REFERENCES shifts (id)
+    FOREIGN KEY (id) REFERENCES worked_events (id)
 );
 
 CREATE TABLE positions
@@ -36,7 +36,7 @@ CREATE TABLE positions
     name            VARCHAR NOT NULL,
     organization_id INTEGER NOT NULL,
     CONSTRAINT positions_id_idx UNIQUE (id),
-    FOREIGN KEY (id) REFERENCES shifts(id)
+    FOREIGN KEY (id) REFERENCES worked_events(id)
 );
 
 CREATE TABLE employee_positions
@@ -45,5 +45,5 @@ CREATE TABLE employee_positions
     external_id INTEGER NOT NULL,
     card_number INTEGER NOT NULL,
     CONSTRAINT employee_positions_id_idx UNIQUE (id),
-    FOREIGN KEY (id) REFERENCES shifts(id)
+    FOREIGN KEY (id) REFERENCES worked_events(id)
 );

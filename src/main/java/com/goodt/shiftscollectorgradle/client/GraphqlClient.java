@@ -2,7 +2,6 @@ package com.goodt.shiftscollectorgradle.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.goodt.shiftscollectorgradle.client.request.GraphqlRequestType;
-import com.goodt.shiftscollectorgradle.client.request.mutation.GraphqlMutation;
 import com.goodt.shiftscollectorgradle.client.request.query.GraphqlQuery;
 import com.goodt.shiftscollectorgradle.client.response.DefaultGraphqlResponse;
 import com.goodt.shiftscollectorgradle.client.response.GraphqlResponse;
@@ -27,12 +26,12 @@ public class GraphqlClient {
     /**
      * graphql server 地址
      */
-    private String graphqlServerUrl = null;
+    private String graphqlServerUrl;
 
     /**
      * http 请求的头
      */
-    private Map<String,String> httpHeaders = new HashMap<String,String>();
+    private Map<String,String> httpHeaders = new HashMap<>();
 
     /**
      * json mapper
@@ -53,8 +52,7 @@ public class GraphqlClient {
      * @return GraphqlClient
      */
     public static GraphqlClient buildGraphqlClient(String graphqlUrl){
-        GraphqlClient graphqlClient = new GraphqlClient(graphqlUrl);
-        return graphqlClient;
+        return new GraphqlClient(graphqlUrl);
     }
 ////////////////////////////////////////////////////////////////////////////////////////////
     /**
@@ -82,41 +80,8 @@ public class GraphqlClient {
         if(result==null){
             return null;
         }
-        GraphqlResponse graphqlResponse = objectMapper.readValue(result, DefaultGraphqlResponse.class);
-        return graphqlResponse;
+        return objectMapper.readValue(result, DefaultGraphqlResponse.class);
     }
-/////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 执行操作
-     * @param mutation exec mutation
-     * @param <T> Mutation
-     * @return response
-     * @throws IOException Exception
-     */
-    public <T extends GraphqlMutation> GraphqlResponse doMutation(T mutation) throws IOException {
-        return doMutation(mutation,GraphqlRequestType.POST);
-    }
-
-    /**
-     * 执行操作
-     * @param mutation exec mutation
-     * @param graphqlRequestType request type get or post,but no get now
-     * @param <T>  Mutation
-     * @return response
-     * @throws IOException Exception
-     */
-    public <T extends GraphqlMutation> GraphqlResponse doMutation(T mutation, GraphqlRequestType graphqlRequestType) throws IOException {
-        String json = mutation.toString();
-        String result = doHttpRequest(json,graphqlRequestType);
-        if(result==null){
-            return null;
-        }
-        GraphqlResponse graphqlResponse = objectMapper.readValue(result, DefaultGraphqlResponse.class);
-
-        return graphqlResponse;
-    }
-
 /////////////////////////////////////////////////////////////////////////////////////
 
     /***
@@ -130,8 +95,6 @@ public class GraphqlClient {
         String result = null;
         if(type.equals(GraphqlRequestType.POST)){
             result = httpClientUtil.doPostJson(graphqlServerUrl,json,this.httpHeaders);
-        }else{
-            //result =
         }
         return result;
     }

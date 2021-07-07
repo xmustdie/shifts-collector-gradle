@@ -62,8 +62,7 @@ public class RequestParameter extends HashMap<String,Object> {
      * @return RequestParameter
      */
     public static RequestParameter build(){
-        RequestParameter requestParameter = new RequestParameter();
-        return requestParameter;
+        return new RequestParameter();
     }
 
     /**
@@ -78,23 +77,23 @@ public class RequestParameter extends HashMap<String,Object> {
             return "";
         }
 
-        String stringVal = "(";
+        StringBuilder stringVal = new StringBuilder("(");
 
         char connect = ',';
 
         for(String key:keys){
-            stringVal = stringVal+ key+":"+packVal(get(key))+connect;
+            stringVal.append(key).append(":").append(packVal(get(key))).append(connect);
         }
 
         char last = stringVal.charAt(stringVal.length()-1);
 
         if(connect == last){
-            stringVal = stringVal.substring(0,stringVal.length()-1);
+            stringVal = new StringBuilder(stringVal.substring(0, stringVal.length() - 1));
         }
 
-        stringVal = stringVal + ")";
+        stringVal.append(")");
 
-        return stringVal;
+        return stringVal.toString();
     }
 
     /**
@@ -115,8 +114,7 @@ public class RequestParameter extends HashMap<String,Object> {
 
         if(val instanceof Enum){
             Enum enumVal = (Enum) val;
-            String enumName = enumVal.name();
-            return enumName;
+            return enumVal.name();
         }
 
         if(val instanceof RequestObjectParameter){

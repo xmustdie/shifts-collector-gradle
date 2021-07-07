@@ -14,8 +14,8 @@ import java.time.format.DateTimeFormatter;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "shifts")
-public class Shift extends AbstractBaseEntity {
+@Table(name = "worked_events")
+public class WorkedEvent extends AbstractBaseEntity {
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);

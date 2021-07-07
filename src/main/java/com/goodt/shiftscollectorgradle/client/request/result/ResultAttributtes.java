@@ -1,6 +1,7 @@
 package com.goodt.shiftscollectorgradle.client.request.result;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,9 +42,7 @@ public class ResultAttributtes {
      */
     public ResultAttributtes addResultAttributes(ResultAttributtes... resultAttr){
         if(resultAttr!=null&&resultAttr.length>0){
-            for(ResultAttributtes ra : resultAttr){
-                resultAttributtes.add(ra);
-            }
+            Collections.addAll(resultAttributtes, resultAttr);
 
         }
         return this;
@@ -54,11 +53,11 @@ public class ResultAttributtes {
         if(resultAttributtes.size()==0){
             return name;
         }
-        String str = name+"{";
+        StringBuilder str = new StringBuilder(name + "{");
         for(ResultAttributtes ra : resultAttributtes){
-            str = str+" " + ra.toString();
+            str.append(" ").append(ra.toString());
         }
-        str = str + " }";
-        return str;
+        str.append(" }");
+        return str.toString();
     }
 }

@@ -21,12 +21,9 @@ public enum  GraphqlState {
     }
 
     public static GraphqlState getEnum(int i){
-        switch (i){
-            case 1:
-                return FAILED;
-                default:
-                    return SUCCESS;
+        if (i == 1) {
+            return FAILED;
         }
-
+        return SUCCESS;
     }
 }
