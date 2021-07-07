@@ -4,17 +4,19 @@ import com.goodt.shiftscollectorgradle.client.response.GraphqlResponse;
 import com.goodt.shiftscollectorgradle.entity.OrganizationUnit;
 import com.goodt.shiftscollectorgradle.service.OrganizationUnitService;
 import com.goodt.shiftscollectorgradle.service.WorkedEventService;
+import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-
+@AllArgsConstructor
 public class GetTimesheetRosterReportAdapter {
 
-    private static OrganizationUnitService organizationUnitService;
-    private static WorkedEventService workedEventService;
 
-    public static void parse(GraphqlResponse response) {
+    private final OrganizationUnitService organizationUnitService;
+    private final WorkedEventService workedEventService;
+
+    public void parseGqlResponse(GraphqlResponse response) {
         for (Object o : response.getData().keySet()
         ) {
             if ("organizationUnit".equals(o)) {

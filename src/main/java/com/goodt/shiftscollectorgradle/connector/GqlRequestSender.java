@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GqlConnector {
+public class GqlRequestSender {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final String SERVER_URL = "https://reports-aggregator-dev.goodt.me/graphql";
 

@@ -1,6 +1,6 @@
 package com.goodt.shiftscollectorgradle;
 
-import com.goodt.shiftscollectorgradle.connector.GqlConnector;
+import com.goodt.shiftscollectorgradle.connector.GqlRequestSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,7 +12,7 @@ public class CollectorScheduler {
 
     @Scheduled(cron = "${scheduler.cron:-}")
     public void getShiftInfo() {
-        GqlConnector gqlConnector = new GqlConnector();
-        gqlConnector.sendRequest();
+        GqlRequestSender gqlRequestSender = new GqlRequestSender();
+        gqlRequestSender.sendRequest();
     }
 }
