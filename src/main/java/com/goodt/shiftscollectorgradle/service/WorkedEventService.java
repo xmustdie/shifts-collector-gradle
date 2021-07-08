@@ -18,7 +18,6 @@ public class WorkedEventService {
         return repository.save(workedEvent);
         //TODO check Event for uniqueness
         //TODO ScheduleRequest exclude
-
     }
 
     private WorkedEvent get(WorkedEvent workedEvent) {

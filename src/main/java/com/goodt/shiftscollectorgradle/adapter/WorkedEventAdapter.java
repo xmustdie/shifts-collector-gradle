@@ -25,7 +25,7 @@ public class WorkedEventAdapter {
     public WorkedEvent convert(Map<String, Object> workedEventData) {
 
         String typename = (String) workedEventData.get("__typename");
-        if ("SchedulerRequest".equals(typename)) {
+        if ("ScheduleRequest".equals(typename)) {
             return null;
         }
         WorkedEvent workedEvent = new WorkedEvent();
