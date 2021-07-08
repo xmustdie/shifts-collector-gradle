@@ -23,8 +23,13 @@ public class WorkedEventAdapter {
     private final EmployeePositionAdapter employeePositionAdapter;
 
     public WorkedEvent convert(Map<String, Object> workedEventData) {
+
+        String typename = (String) workedEventData.get("__typename");
+        if ("SchedulerRequest".equals(typename)) {
+            return null;
+        }
         WorkedEvent workedEvent = new WorkedEvent();
-        workedEvent.set__typename((String) workedEventData.get("__typename"));
+        workedEvent.set__typename(typename);
         workedEvent.setStatus((String) workedEventData.get("status"));
         workedEvent.setType((String) workedEventData.get("type"));
         workedEvent.setDayType((String) workedEventData.get("dayType"));

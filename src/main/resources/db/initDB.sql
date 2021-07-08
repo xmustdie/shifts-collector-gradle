@@ -52,5 +52,6 @@ CREATE TABLE worked_events
     end_date_time        TIMESTAMP,
     FOREIGN KEY (employee_id) REFERENCES employees (id),
     FOREIGN KEY (position_id) REFERENCES positions (id),
-    FOREIGN KEY (employee_position_id) REFERENCES employee_positions (id)
+    FOREIGN KEY (employee_position_id) REFERENCES employee_positions (id),
+    CONSTRAINT employee_date_interval_idx UNIQUE (employee_id, start_date_time, end_date_time)
 );

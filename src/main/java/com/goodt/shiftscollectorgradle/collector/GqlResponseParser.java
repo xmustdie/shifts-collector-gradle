@@ -4,6 +4,7 @@ import com.goodt.shiftscollectorgradle.adapter.OrganizationUnitAdapter;
 import com.goodt.shiftscollectorgradle.adapter.WorkedEventAdapter;
 import com.goodt.shiftscollectorgradle.client.response.GraphqlResponse;
 import com.goodt.shiftscollectorgradle.entity.OrganizationUnit;
+import com.goodt.shiftscollectorgradle.entity.WorkedEvent;
 import com.goodt.shiftscollectorgradle.service.OrganizationUnitService;
 import com.goodt.shiftscollectorgradle.service.WorkedEventService;
 import lombok.AllArgsConstructor;
@@ -25,25 +26,25 @@ public class GqlResponseParser {
     private final OrganizationUnitAdapter organizationUnitAdapter;
 
     public void parseGqlResponse(GraphqlResponse response) {
-        //TODO response error handler
-        Map dataContainer = (Map) ((Map) response.getData().get("data")).get(
-                "getTimesheetRosterReport");
-        for (Object o : dataContainer.keySet()
-        ) {
-            if ("organizationUnit".equals(o)) {
-                var organizationUnit = new OrganizationUnit();
-                organizationUnitAdapter.convert((Map) dataContainer.get(
-                        "organizationUnit"), organizationUnit);
-                organizationUnitService.save(organizationUnit);
-            }
+        if (response.getData().get("data") != null) {
+            Map dataContainer = (Map) ((Map) response.getData().get("data")).get(
+                    "getTimesheetRosterReport");
+            var organizationUnit = new OrganizationUnit();
+            organizationUnitAdapter.convert((Map) dataContainer.get(
+                    "organizationUnit"), organizationUnit);
+            organizationUnitService.save(organizationUnit);
 
-            if ("workedEvents".equals(o)) {
-                var workedEvents = (ArrayList) dataContainer.get(
-                        "workedEvents");
-                for (Object workedEvent : workedEvents) {
-                    workedEventService.save(workedEventAdapter.convert((Map) workedEvent));
+            var workedEvents = (ArrayList) dataContainer.get(
+                    "workedEvents");
+            for (Object responseWorkedEvent : workedEvents) {
+                WorkedEvent workedEvent = workedEventAdapter.convert((Map) responseWorkedEvent);
+                if (workedEvent != null) {
+                    workedEventService.save(workedEvent);
                 }
             }
+        } else {
+            log.error("Error receiving data from service, plz check request of remote server " +
+                    "status");
         }
     }
 }
