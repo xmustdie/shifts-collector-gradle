@@ -10,9 +10,13 @@ public class EmployeePositionAdapter {
 
     public EmployeePosition convert(Map employeePositionData) {
         EmployeePosition employeePosition = new EmployeePosition();
-        employeePosition.setExternalId((Integer) employeePositionData.get("id"));
-        employeePosition.setCardNumber((String) employeePositionData.get("cardNumber"));
-
+        if (employeePositionData == null) {
+            employeePosition.setExternalId(0);
+            employeePosition.setCardNumber("Unknown number");
+        } else {
+            employeePosition.setExternalId((Integer) employeePositionData.get("id"));
+            employeePosition.setCardNumber((String) employeePositionData.get("cardNumber"));
+        }
         return employeePosition;
     }
 }

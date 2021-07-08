@@ -11,7 +11,7 @@ public class EmployeePositionService {
     private final EmployeePositionRepository repository;
     public EmployeePosition save(EmployeePosition employeePosition) {
         if (employeePosition == null) return null;
-        if (!employeePosition.isNew() && checkFoundWithExternalId(employeePosition.getExternalId())) {
+        if (checkFoundWithExternalId(employeePosition.getExternalId())) {
             return get(employeePosition.getExternalId());
         } else {
             return repository.save(employeePosition);

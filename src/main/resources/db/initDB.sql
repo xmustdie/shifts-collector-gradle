@@ -10,7 +10,7 @@ CREATE SEQUENCE global_seq START WITH 100000;
 CREATE TABLE employees
 (
     id        INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    outer_id  VARCHAR NOT NULL,
+    outer_id  VARCHAR NOT NULL CONSTRAINT employees_outer_id_idx UNIQUE,
     last_name VARCHAR NOT NULL
 );
 
@@ -18,14 +18,14 @@ CREATE TABLE positions
 (
     id              INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     name            VARCHAR NOT NULL,
-    organization_id VARCHAR NOT NULL,
+    organization_id VARCHAR NOT NULL ,
     CONSTRAINT positions_id_idx UNIQUE (id)
 );
 
 CREATE TABLE employee_positions
 (
     id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    external_id INTEGER NOT NULL,
+    external_id INTEGER NOT NULL CONSTRAINT emp_position_external_id_idx UNIQUE,
     card_number VARCHAR NOT NULL,
     CONSTRAINT employee_positions_id_idx UNIQUE (id)
 );
@@ -33,7 +33,7 @@ CREATE TABLE employee_positions
 CREATE TABLE organization_units
 (
     id       INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    outer_id VARCHAR NOT NULL,
+    outer_id VARCHAR NOT NULL CONSTRAINT outer_id_idx UNIQUE,
     title    VARCHAR
 );
 

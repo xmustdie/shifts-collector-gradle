@@ -12,7 +12,7 @@ public class OrganizationUnitService {
     private final OrganizationUnitRepository repository;
 
     public OrganizationUnit save(OrganizationUnit organizationUnit) {
-        if (!organizationUnit.isNew() && get(organizationUnit.getOuterId()) == null) {
+        if (get(organizationUnit.getOuterId()) != null) {
             return get(organizationUnit.getOuterId());
         } else {
             return repository.save(organizationUnit);

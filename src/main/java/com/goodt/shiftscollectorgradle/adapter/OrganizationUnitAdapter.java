@@ -9,6 +9,7 @@ import java.util.Map;
 public class OrganizationUnitAdapter {
     public void convert(Map organizationUnitData, OrganizationUnit organizationUnit) {
         organizationUnit.setOuterId((String)organizationUnitData.get("outerId"));
+        organizationUnit.setTitle((String) organizationUnitData.get("title"));
     }
 
     public static OrganizationUnit convert(Map organizationUnitData) {
