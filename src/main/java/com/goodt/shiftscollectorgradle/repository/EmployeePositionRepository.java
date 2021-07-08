@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmployeePositionRepository extends JpaRepository<EmployeePosition, Integer> {
+    Boolean existsEmployeePositionByExternalId(Integer externalId);
+
+    EmployeePosition findEmployeePositionByExternalId(Integer externalId);
 }

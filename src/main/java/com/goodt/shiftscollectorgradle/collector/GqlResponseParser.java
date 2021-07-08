@@ -25,6 +25,7 @@ public class GqlResponseParser {
     private final OrganizationUnitAdapter organizationUnitAdapter;
 
     public void parseGqlResponse(GraphqlResponse response) {
+        //TODO response error handler
         Map dataContainer = (Map) ((Map) response.getData().get("data")).get(
                 "getTimesheetRosterReport");
         for (Object o : dataContainer.keySet()

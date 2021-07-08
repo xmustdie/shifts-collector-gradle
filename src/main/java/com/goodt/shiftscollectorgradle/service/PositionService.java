@@ -2,9 +2,11 @@ package com.goodt.shiftscollectorgradle.service;
 
 import com.goodt.shiftscollectorgradle.entity.Position;
 import com.goodt.shiftscollectorgradle.repository.PositionRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class PositionService {
     private PositionRepository repository;
 

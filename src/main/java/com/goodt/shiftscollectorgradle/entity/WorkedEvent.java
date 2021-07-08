@@ -6,7 +6,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,18 +18,20 @@ public class WorkedEvent extends AbstractBaseEntity {
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
-
-    @Column(name = "day_type")
-    private String dayType;
+    @Column(name = "typename")
+    private String __typename;
 
     @Column(name = "status")
     private String status;
 
-    //    private Enum type;
-    /*TODO type realization*/
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "day_type")
+    private String dayType;
 
     @Column(name = "lunch_time")
-    private BigInteger lunchTime;
+    private Double lunchTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")

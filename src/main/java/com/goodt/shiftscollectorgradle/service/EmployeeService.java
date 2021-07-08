@@ -11,7 +11,8 @@ public class EmployeeService {
     private final EmployeeRepository repository;
 
     public Employee save(Employee employee) {
-        if (!employee.isNew() && get(employee.getOuterId()) == null) {
+        if (employee == null) return null;
+        if (!employee.isNew() && checkFoundWithOuterId(employee.getOuterId())) {
             return get(employee.getOuterId());
         } else {
             return repository.save(employee);
@@ -20,5 +21,9 @@ public class EmployeeService {
 
     public Employee get(String outerId) {
         return repository.findByOuterId(outerId);
+    }
+
+    private boolean checkFoundWithOuterId(String outerId) {
+        return repository.existsEmployeeByOuterId(outerId);
     }
 }

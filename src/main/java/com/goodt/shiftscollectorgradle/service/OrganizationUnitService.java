@@ -2,16 +2,14 @@ package com.goodt.shiftscollectorgradle.service;
 
 import com.goodt.shiftscollectorgradle.entity.OrganizationUnit;
 import com.goodt.shiftscollectorgradle.repository.OrganizationUnitRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class OrganizationUnitService {
 
     private final OrganizationUnitRepository repository;
-
-    public OrganizationUnitService(OrganizationUnitRepository repository) {
-        this.repository = repository;
-    }
 
     public OrganizationUnit save(OrganizationUnit organizationUnit) {
         if (!organizationUnit.isNew() && get(organizationUnit.getOuterId()) == null) {

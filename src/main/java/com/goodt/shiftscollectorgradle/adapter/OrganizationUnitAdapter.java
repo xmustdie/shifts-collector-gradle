@@ -14,6 +14,7 @@ public class OrganizationUnitAdapter {
     public static OrganizationUnit convert(Map organizationUnitData) {
         OrganizationUnit organizationUnit = new OrganizationUnit();
         organizationUnit.setOuterId((String)organizationUnitData.get("outerId"));
+        organizationUnit.setTitle("");
         return organizationUnit;
     }
 }
